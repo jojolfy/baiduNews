@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数据库管理</title>
+    <link rel='stylesheet' href='./stylesheets/bootstrap.min.css' />
+    <link rel='stylesheet' href='./stylesheets/style.css' />
+    <script src="./javascripts/jquery.min.js"></script>
+    <script src="./javascripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">百度新闻后台管理器</div>
+    </div>
+    <div class="by clearfix">
+        <div class="panel panel-default pull-left addnews">
+            <div class="panel-heading">
+                <h3 class="panel-title">新闻发布器</h3>
+            </div>
+            <div class="panel-body">
+                <label for="news-tit">新闻标题</label>
+                <input id="news-tit" type="text" name="title" placeholder="请输入新闻标题" />
+                <label for="news-text">新闻正文</label>
+                <textarea  id="news-text"></textarea>
+                <label for="news-img">新闻图片地址</label>
+                <input id="news-img" type="text" name="title" placeholder="请输入新闻图片网址" />
+                <label for="news-soc">新闻来源</label>
+                <input id="news-soc" type="text" name="title" placeholder="请输入新闻来源" />
+                <label for="news-time">新闻日期</label>
+                <input id="news-time" type="text" name="title" placeholder="2017/07/07" />
+                <label for="news-tag">新闻标签</label>
+                <select id="news-tag" class="form-control tag-list">
+                    <option>推荐</option>
+                    <option>百家</option>
+                    <option>本地</option>
+                    <option>图片</option>
+                    <option>娱乐</option>
+                    <option>社会</option>
+                    <option>军事</option>
+                    <option>互联网</option>
+                    <option>科技</option>
+                    <option>女人</option>
+                    <option>搞笑</option>
+                    <option>生活</option>
+                    <option>国际</option>
+                    <option>国内</option>
+                    <option>体育</option>
+                    <option>汽车</option>
+                    <option>财经</option>
+                    <option>房产</option>
+                    <option>时尚</option>
+                    <option>教育</option>
+                    <option>游戏</option>
+                    <option>旅游</option>
+                    <option>人文</option>
+                    <option>创意</option>
+                    <option>互联网+</option>
+                    <option>时尚网</option>
+                    <option>观察网</option>
+                    <option>NBA</option>
+                    <option>苹果公司</option>
+                </select>
+                <button id="add-sql" type="button" class="btn btn-primary">提交</button>
+                <button id="clear" type="button" class="btn btn-default">清除</button>
+            </div>
+        </div>
+        <div class="panel panel-default  pull-right newslist">
+            <div class="panel-heading">
+                <h3 class="panel-title">新闻列表
+                    <span class="flush"></span>
+                </h3>
+            </div>
+            <div class="news">
+                <h3 class="news-class">
+                    <span>新闻编号</span>
+                    <span>新闻标题</span>
+                    <span>新闻时间</span>
+                    <span>操作</span>
+                </h3>
+                <div id="information" class="news-mess">
+                    <!-- <a href="javascript:;" class="news-event clearfix">
+                        <h4 class="pull-left">23</h4>
+                        <p class="pull-left">新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表</p>
+                        <span>2017-07-02 21:44:35</span>
+                        <div class="delBtn">
+                            <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#del-modal">删除</button>
+                        </div>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="del-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">警告！</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除此条数据？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="del-sql" type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="add-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function toDou(n){
+        return n<10?'0'+n:n;
+    }
+    function de(){
+        var d=new Date();
+        var y=d.getFullYear(),
+            M=d.getMonth()+1,
+            D=d.getDate(),
+            h=d.getHours(),
+            m=d.getMinutes(),
+            s=d.getSeconds();
+        return y+'-'+toDou(M)+'-'+toDou(D)+' '+toDou(h)+':'+toDou(m)+':'+toDou(s);
+    }
+    console.log(de());
+    //添加数据
+        var str='addnews';
+        var re=/^\s*$/;
+        var num=0;
+        $('#add-sql').click(function (){
+            if(str=='addnews'){
+                var addJson={
+                    title:$('#news-tit').val(),
+                    text:$('#news-text').val(),
+                    img:$('#news-img').val(),
+                    sou:$('#news-soc').val(),
+                    tag:$('#news-tag').val()
+                };
+                if(re.test(addJson.title)||re.test(addJson.text)||re.test(addJson.img)||re.test(addJson.sou)){
+                    if(re.test(addJson.title)){
+                        $('#news-tit').addClass('on');
+                    }
+                    if(re.test(addJson.text)){
+                        $('#news-text').addClass('on');
+                    }
+                    if(re.test(addJson.img)){
+                        $('#news-img').addClass('on');
+                    }
+                    if(re.test(addJson.sou)){
+                        $('#news-soc').addClass('on');
+                    }
+                    return;
+                }
+                var time=de();
+                $.ajax({
+                    url:'/addNews',
+                    type:'post',
+                    data:addJson,
+                    success:function (obj){
+                        $(`<a href="javascript:;" class="news-event">
+                            <h4>${obj.insertId}</h4>
+                            <p>${addJson.title}</p>
+                            <span>${time}</span>
+                            <div class="delBtn">
+                                <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#del-modal">删除</button>
+                            </div></a>`).appendTo('#information');
+                        $('input').val('');
+                        $('textarea').val('');
+                        $('#add-modal p').text('添加数据成功！');
+                        $('#add-modal').modal();
+                    },
+                    error:function (err){
+                        console.log(err);
+                    }
+                });
+            }else if(str=='updata'){
+                var updataJson={
+                    id:num,
+                    title:$('#news-tit').val(),
+                    text:$('#news-text').val(),
+                    img:$('#news-img').val(),
+                    sou:$('#news-soc').val(),
+                    tag:$('#news-tag').val(),
+                    time:$('#news-time').val()
+                };
+                $.ajax({
+                    url:'/updataNews',
+                    type:'post',
+                    data:updataJson,
+                    success:function (nub){
+                        $('#information h4').each(function (i,e){
+                            if(e.innerHTML===nub){
+                                e.parentNode.innerHTML=`<h4>${updataJson.id}</h4>
+                                    <p>${updataJson.title}</p>
+                                    <span>${updataJson.time}</span>
+                                    <div class="delBtn">
+                                    <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#del-modal">删除</button></div>`;
+                            }
+                        });
+                        $('input').val('');
+                        $('textarea').val('');
+                        str='addnews';
+                        num=0;
+                    },
+                    error:function (err){
+                        console.log(err);
+                    }
+                });
+            }
+        });
+    //不为空时输入框颜色正常
+        $('input').bind('input propertychange',function (){
+            if(!re.test($(this).val())){
+                $(this).removeClass('on');
+            }
+        });
+        $('textarea').bind('input propertychange',function (){
+            if(!re.test($(this).val())){
+                $(this).removeClass('on');
+            }
+        });
+    // 获取数据
+        function getList(){
+            $.ajax({
+                url:'/getNews',
+                type:'post',
+                success:function(arr){
+                    $('#information').html('');
+                    for(var i=0; i<arr.length; i++){
+                        $(`<a href="javascript:;" class="news-event">
+                        <h4>${arr[i].id}</h4>
+                        <p>${arr[i].title}</p>
+                        <span>${arr[i].time}</span>
+                        <div class="delBtn">
+                            <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#del-modal">删除</button>
+                        </div></a>`).appendTo('#information');
+                    }
+                },
+                error:function (err){
+                    console.log(err);
+                }
+            });
+        }
+    // 刷新按钮
+        getList();
+        $('.flush').click(function (){
+            getList();
+        });
+    // 删除数据
+        $('#information').on('click','button',function (){
+            var obj=$(this).parent().parent();
+            var num=$(this).parent().siblings('h4').text();
+            console.log(num);
+            $('#del-sql').click(function (){
+                $.ajax({
+                    url:'/delNews',
+                    type:'post',
+                    data:{
+                        id:num
+                    },
+                    success:function (str){
+                        $('#add-modal p').text(str);
+                        $('#add-modal').modal();
+                        obj.remove();
+                    },
+                    error:function (err){
+                        console.log(err);
+                    }
+                });
+            });
+        });
+    // 点击某条数据编辑
+        $('#information').on('click','a',function (){
+            var obj=$(this).parent();
+            num=$(this).children('h4').text();
+            $.ajax({
+                url:'/getOne',
+                type:'post',
+                data:{
+                    id:num
+                },
+                success:function (data){
+                    $('#news-tit').val(data.title);
+                    $('#news-text').val(data.text);
+                    $('#news-img').val(data.img);
+                    $('#news-soc').val(data.source);
+                    $('#news-tag').val(data.class);
+                    $('#news-time').val(data.time);
+                    str='updata';
+                },
+                error:function (err){
+                    console.log(err);
+                }
+            });
+        });
+    //清除输入框
+        $('#clear').click(function (){
+            $('input').val('');
+            $('input').removeClass('on');
+            $('textarea').val('');
+            $('textarea').removeClass('on');
+            str='addnews';
+        });
+    </script>
+</body>
+</html>

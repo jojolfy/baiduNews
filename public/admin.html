@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>数据库管理</title>
+    <link rel='stylesheet' href='stylesheets/style.css' />
+    <link rel='stylesheet' href='stylesheets/bootstrap.min.css' />
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/bootstrap.min.js"></script>
+    <script src="javascripts/admin.js"></script>
+</head>
+
+<body>
+    <div class="panel panel-default">
+        <div class="panel-heading">百度新闻后台管理器</div>
+    </div>
+    <div class="by clearfix">
+        <div class="panel panel-default pull-left addnews">
+            <div class="panel-heading">
+                <h3 class="panel-title">新闻发布器</h3>
+            </div>
+            <div class="panel-body">
+                <label for="news-tit">新闻标题</label>
+                <input id="news-tit" type="text" name="title" placeholder="请输入新闻标题" />
+                <label>新闻正文</label>
+                <textarea></textarea>
+                <label for="news-img">新闻图片地址</label>
+                <input id="news-img" type="text" name="title" placeholder="请输入新闻图片网址" />
+                <label for="news-soc">新闻来源</label>
+                <input id="news-soc" type="text" name="title" placeholder="请输入新闻来源" />
+                <label for="news-soc">新闻日期</label>
+                <input id="news-soc" type="text" name="title" placeholder="2017/07/03" />
+                <label for="news-soc">新闻标签</label>
+                <select class="form-control tag-list">
+                    <option>推荐</option>
+                    <option>百家</option>
+                    <option>本地</option>
+                    <option>图片</option>
+                    <option>娱乐</option>
+                    <option>社会</option>
+                    <option>军事</option>
+                    <option>互联网</option>
+                    <option>科技</option>
+                    <option>女人</option>
+                    <option>搞笑</option>
+                    <option>生活</option>
+                    <option>国际</option>
+                    <option>国内</option>
+                    <option>体育</option>
+                    <option>汽车</option>
+                    <option>财经</option>
+                    <option>房产</option>
+                    <option>时尚</option>
+                    <option>教育</option>
+                    <option>游戏</option>
+                    <option>旅游</option>
+                    <option>人文</option>
+                    <option>创意</option>
+                    <option>互联网+</option>
+                    <option>时尚网</option>
+                </select>
+                <button type="button" class="btn btn-primary">提交</button>
+            </div>
+        </div>
+        <div class="panel panel-default  pull-right newslist">
+            <div class="panel-heading">
+                <h3 class="panel-title">新闻列表</h3>
+            </div>
+            <div class="news">
+                <h3 class="news-class">
+                    <span>新闻编号</span>
+                    <span>新闻标题</span>
+                    <span>新闻时间</span>
+                    <span>操作</span>
+                </h3>
+                <div class="news-mess">
+                    <a href="javascript:;" class="news-event clearfix">
+                        <h4 class="pull-left">23</h4>
+                        <p class="pull-left">新闻列表新闻列表新闻列表新闻列表新闻列表新闻列表</p>
+                        <span>2017-07-02 21:44:35</span>
+                        <div class="delBtn">
+                            <button type="button" class="btn btn-danger btn-primary" data-toggle="modal" data-target="#del-modal">删除</button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="del-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">警告！</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确认删除此条数据？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="del-sql" type="button" class="btn btn-primary">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="del-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">提示</h4>
+                </div>
+                <div class="modal-body">
+                    <p>添加数据成功！</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="insert-sql" type="button" class="btn btn-primary">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
