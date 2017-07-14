@@ -60,9 +60,9 @@ getNews('推荐');
 	var w=-$('#nav-munu').width();
 	box.addEventListener('touchstart',function (ev){
 		ev.preventDefault();
-		var l=ev.targetTouches[0].clientX-x;
+		var l=ev.targetTouches[0].pageX-x;
 		function fnMove(ev){
-			x=ev.targetTouches[0].clientX-l;
+			x=ev.targetTouches[0].pageX-l;
 			if(x>0){
 				x=0;
 			}else if(x<w){
@@ -107,8 +107,8 @@ getNews('推荐');
 	for(let i=0; i<$('#nav-munu li').length; i++){
 		aW.push($('#nav-munu li').eq(i).offset().left+$('#nav-munu li').eq(i).outerWidth(true)/2);
 	}
-	$('#nav-munu li').on({					//改成click事件就不会有冒泡
-		touchend:function (){
+	/*$('#nav-munu li').on({
+		touchstart:function (){
 			$(this).siblings().removeClass('selected');
 			$(this).addClass('selected');
 
@@ -121,7 +121,7 @@ getNews('推荐');
 			}
 			getNews($(this).children('a').text());
 		}
-	})
+	})*/
 	$('#allmunus li').click(function (){
 		$(this).siblings().removeClass('selected');
 		$(this).addClass('selected');
@@ -129,17 +129,9 @@ getNews('推荐');
 		$('#nav-munu li').siblings().removeClass('selected');
 		$('#nav-munu li').eq($(this).index()).addClass('selected');
 
-		$('.allMenu').css('display','none');
-		$('.scrollMenu').css('display','block');
-
-		var win=$(window).width()/2;
-		if(aW[$(this).index()]>win){
-			box.style.left=-(aW[$(this).index()]-win-16)+'px';
-		}
-
 		getNews($(this).children('a').text());
 	});
-	/*var nav=document.querySelectorAll('#nav-munu li');
+	var nav=document.querySelectorAll('#nav-munu li');
 	for(let i=0; i<nav.length; i++){
 		nav[i].addEventListener('touchend',function (){
 			for(var j=0; j<nav.length; j++){
@@ -155,44 +147,5 @@ getNews('推荐');
 			}
 			getNews(this.children[0].innerHTML);
 		},false);
-	}*/
-
-	//刷新页面的新闻
-	var y=0, news=document.querySelector('#newsList'),
-		load=document.querySelector('.news-load'),
-		bOk=false;
-	/*$('#newsList').on({
-		touchstart:function (ev){
-			var oldY=ev.targetTouches[0].pageY-y;
-		}
-
-	})*/
-	news.addEventListener('touchstart',function (ev){
-		ev.preventDefault();
-		var t=ev.targetTouches[0].clientY-y;
-		function fMove(ev){
-			y=ev.targetTouches[0].clientY-t;
-			if(y>30){
-				y=30;
-			}
-			news.style.top=y+'px';
-			load.style.height=y+'px';
-			if(y>20){
-				getNews($('#nav-munu .selected').children('a').text());
-			}
-			bOk=true;
-			setTimeout(function (){
-				news.style.top=0;
-				load.style.height=0;
-			},2000);
-		}
-		document.addEventListener('touchmove',fMove,false);
-		document.addEventListener('touchend',function (ev){
-			if(bOk){
-				ev.cancelBubble=true;
-			}
-			bOk=false;
-			document.removeEventListener('touchmove', fMove, false);
-		},true);
-	},false);
+	}
 });

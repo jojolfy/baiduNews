@@ -68,7 +68,7 @@ nav .navbar{
 nav .scrollMenu{
 	position: relative;
 	width: 100%;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	height: 40px;
 	
 }
@@ -80,7 +80,6 @@ nav .scrollMenu .munus{
 	margin-left: -16px;
 	/*overflow-x: auto;*/
 	display: -webkit-box;
-	transition: .3s all linear;
 }
 nav .munus li{
 	/*float: left;*/
@@ -218,34 +217,19 @@ nav .allMenu .sort a{
 
 /*新闻列表*/
 .news-body{
-	position: relative;
 	padding: 0 17px;
-	min-height: 112px;
-}
-.news-body .news-load{
-	overflow: hidden;
-	text-align: center;
-	height: 0;
-	transition: .5s all ease;
-}
-.news-body .news-load img{
-	height: 30px;
-}
-.news-body ul{
-	position: absolute;
-	/*top: 0;*/
-	transition: .5s all ease;
 }
 .news-body li{
 	padding: 8.5px 0 10px;
 	overflow: hidden;
 	border-bottom: 1px solid #eaeaea;
+	
 }
 .news-body li a{
 	display: block;
 	padding: 3px 0 5.5px;
 	display: -webkit-box;
-    -webkit-box-align: center;			/*-------------------------*/
+    -webkit-box-align: center;
     box-sizing: border-box;
 }
 
